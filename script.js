@@ -1,4 +1,3 @@
-const marker = 0;
 function Gameboard () {
     const board = [];
     const getGameboard = (i) => board[i];
@@ -6,7 +5,16 @@ function Gameboard () {
     return {getGameboard, setGameboard};
 }
 
+function createPlayer(mark) {
+    let marker = mark;
+    const getMarker = () => marker;
+    const setMarker = (new_mark) => marker=new_mark;
+    return {setMarker, getMarker};
+}
+
 const gameboard = new Gameboard;
+const player = createPlayer("X");
+
 for (let i = 0; i < 9; i++) {
     if (i % 2 == 0) {
         gameboard.setGameboard('X', i);
@@ -16,7 +24,7 @@ for (let i = 0; i < 9; i++) {
 }
 
 function changeMarker(mark) {
-    marker = mark;
+    player.setMarker(mark);
 }
 
 function changeBoard(e) {
@@ -30,7 +38,7 @@ function fillBoard() {
         new_grid.classList.add('board-grid');
         new_grid.setAttribute('id', i);
         new_grid.onclick = function (e) {
-            gameboard.setGameboard(marker, e.target.id);
+            gameboard.setGameboard(player.getMarker(), e.target.id);
             fillBoard();
         }
         new_grid.innerHTML = gameboard.getGameboard(i);
