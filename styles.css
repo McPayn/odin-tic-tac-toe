@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+* {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, .1fr);
+    place-items: center;
+}
+
+.board-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    border: 2px solid black;
+    width: 100px;
+    height: 100px;
+}
+
+.board-grid:hover {
+    background-color: rgb(163, 156, 156);
+    transition: background-color 500ms linear;
+}
