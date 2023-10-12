@@ -8,7 +8,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
+
 .container {
     display: grid;
     grid-template-columns: repeat(3, .1fr);
@@ -28,4 +30,14 @@ body {
 .board-grid:hover {
     background-color: rgb(163, 156, 156);
     transition: background-color 500ms linear;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.turn-notif {
+    font-size: 30px;
+    font-weight: 800;
 }
