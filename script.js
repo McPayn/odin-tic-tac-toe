@@ -44,6 +44,9 @@ function fillBoard() {
     const player_turn = document.querySelector('.turn-notif');
     const play = gameboard.getPlayerTurn() ? '1' : '2';
     player_turn.innerHTML = 'Player ' + play + ' turn';
+    if (checkWin()) {
+        player_turn.innerHTML = 'Winner!';
+    }
 }
 
 function setGrid(id) {
@@ -61,4 +64,19 @@ function resetBoard() {
         gameboard.setGameboard('', i);
     }
     fillBoard();
+}
+
+// Checks for wins - Buggy, need to look into
+function checkWin() {
+    for (let i = 0; i < 3; i++) {
+        let row = []
+        for (let j = i * 3; j < i * 3 + 3; j++) {
+            row.push(gameboard.getGameboard(j));
+        }
+
+        if (row.every(field => field == 'X') || row.every(field => field == 'O')) {
+            return true;
+        }
+    }
+    return false;
 }
