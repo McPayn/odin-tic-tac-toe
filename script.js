@@ -36,10 +36,6 @@ function changeMarker(mark) {
     player2.setMarker(mark_2);
 }
 
-function changeBoard(e) {
-    gameboard.setGameboard(marker, e.target.id);
-}
-
 function fillBoard() {
     for (let i = 0; i < 9; i++) {
         const new_grid = document.getElementById(i);
