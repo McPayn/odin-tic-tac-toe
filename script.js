@@ -2,7 +2,6 @@ function Gameboard () {
     const board = Array(9).fill('');
     let playerTurn = true;
     let win_mark = '';
-    let winner = '';
     const getGameboard = (i) => board[i];
     const setGameboard = (stuff, i) => board[i] = stuff;
     const getPlayerTurn = () => playerTurn;
@@ -14,10 +13,8 @@ function Gameboard () {
     };
     const setWinMark = (val) => win_mark = val;
     const getWinMark = () => win_mark;
-    const setWinner = (val) => winner = val;
-    const getWinner = () => winner;
     return {getGameboard, setGameboard, clearGameboard, getPlayerTurn, setPlayerTurn,
-    setWinMark, getWinMark, setWinner, getWinner};
+    setWinMark, getWinMark };
 }
 
 function createPlayer(mark) {
