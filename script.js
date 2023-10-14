@@ -68,15 +68,37 @@ function resetBoard() {
 
 // Checks for wins - Buggy, need to look into
 function checkWin() {
+    let result = false;
     for (let i = 0; i < 3; i++) {
         let row = []
         for (let j = i * 3; j < i * 3 + 3; j++) {
             row.push(gameboard.getGameboard(j));
         }
 
-        if (row.every(field => field == 'X') || row.every(field => field == 'O')) {
-            return true;
+        if (row.every(field => field === 'X') || row.every(field => field == 'O')) {
+            result = true;
         }
     }
-    return false;
+
+    for (let i = 0; i < 3; i++) {
+        let column = []
+        for (let j = i; j < i + 7; j+=3) {
+            column.push(gameboard.getGameboard(j));
+        }
+
+        if (column.every(field => field === 'X') || column.every(field => field == 'O')) {
+            result = true;
+        }
+    }
+
+    for (let i = 0; i < 3; i++) {
+        let diagonal1 = [gameboard.getGameboard(0), gameboard.getGameboard(4), gameboard.getGameboard(8)];
+        let diagonal2 = [gameboard.getGameboard(2), gameboard.getGameboard(4), gameboard.getGameboard(6)];
+        if (diagonal1.every(field => field === 'X') || diagonal1.every(field => field === 'O')) {
+            result = true;
+        } else if (diagonal2.every(field => field === 'X') || diagonal2.every(field => field === 'O')) {
+            result = true;
+        }
+    }
+    return result;
 }
