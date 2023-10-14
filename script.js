@@ -1,6 +1,8 @@
 function Gameboard () {
     const board = Array(9).fill('');
     let playerTurn = true;
+    let win_mark = '';
+    let winner = '';
     const getGameboard = (i) => board[i];
     const setGameboard = (stuff, i) => board[i] = stuff;
     const getPlayerTurn = () => playerTurn;
@@ -10,7 +12,12 @@ function Gameboard () {
             board[j] = '';
         }
     };
-    return {getGameboard, setGameboard, clearGameboard, getPlayerTurn, setPlayerTurn};
+    const setWinMark = (val) => win_mark = val;
+    const getWinMark = () => win_mark;
+    const setWinner = (val) => winner = val;
+    const getWinner = () => winner;
+    return {getGameboard, setGameboard, clearGameboard, getPlayerTurn, setPlayerTurn,
+    setWinMark, getWinMark, setWinner, getWinner};
 }
 
 function createPlayer(mark) {
@@ -42,10 +49,10 @@ function fillBoard() {
         new_grid.innerHTML = gameboard.getGameboard(i);
     }
     const player_turn = document.querySelector('.turn-notif');
-    const play = gameboard.getPlayerTurn() ? '1' : '2';
-    player_turn.innerHTML = 'Player ' + play + ' turn';
+    const play = gameboard.getPlayerTurn() ? player1.getMarker() : player2.getMarker();
+    player_turn.innerHTML = play + ' turn';
     if (checkWin()) {
-        player_turn.innerHTML = 'Winner!';
+        player_turn.innerHTML = gameboard.getWinMark() + ' Wins!';
     }
 }
 
@@ -77,6 +84,7 @@ function checkWin() {
 
         if (row.every(field => field === 'X') || row.every(field => field == 'O')) {
             result = true;
+            gameboard.setWinMark(row[0]);
         }
     }
 
@@ -88,6 +96,7 @@ function checkWin() {
 
         if (column.every(field => field === 'X') || column.every(field => field == 'O')) {
             result = true;
+            gameboard.setWinMark(column[0]);
         }
     }
 
@@ -96,8 +105,10 @@ function checkWin() {
         let diagonal2 = [gameboard.getGameboard(2), gameboard.getGameboard(4), gameboard.getGameboard(6)];
         if (diagonal1.every(field => field === 'X') || diagonal1.every(field => field === 'O')) {
             result = true;
+            gameboard.setWinMark(diagonal1[0]);
         } else if (diagonal2.every(field => field === 'X') || diagonal2.every(field => field === 'O')) {
             result = true;
+            gameboard.setWinMark(diagonal2[0]);
         }
     }
     return result;
