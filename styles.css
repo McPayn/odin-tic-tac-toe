@@ -9,6 +9,8 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.445);
+    gap: 20px;
 }
 
 .container {
@@ -27,10 +29,26 @@ body {
     height: 100px;
 }
 
-.board-grid:hover {
+.left {
+    border-left: none;
+}
+
+.right {
+    border-right: none;
+}
+
+.top {
+    border-top: none;
+}
+
+.bottom {
+    border-bottom: none;
+}
+
+/*.board-grid:hover {
     background-color: rgb(163, 156, 156);
     transition: background-color 500ms linear;
-}
+}*/
 
 .buttons {
     display: flex;
@@ -40,4 +58,11 @@ body {
 .turn-notif {
     font-size: 30px;
     font-weight: 800;
+}
+
+button {
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    border: none;
 }

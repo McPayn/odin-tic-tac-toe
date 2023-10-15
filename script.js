@@ -36,6 +36,7 @@ function changeMarker(mark) {
     player2.setMarker(mark_2);
 }
 
+
 function fillBoard() {
     for (let i = 0; i < 9; i++) {
         const new_grid = document.getElementById(i);
