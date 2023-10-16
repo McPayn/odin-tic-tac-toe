@@ -5,10 +5,13 @@ function Gameboard () {
     const board = Array(9).fill('');
     let playerTurn = true;
     let win_mark = '';
+    let game = true;
     const getGameboard = (i) => board[i];
     const setGameboard = (stuff, i) => board[i] = stuff;
     const getPlayerTurn = () => playerTurn;
     const setPlayerTurn = (val) => playerTurn = val;
+    const getGame = () => game;
+    const setGame = (val) => game = val;
     const clearGameboard = () => {
         for (let j = 0; j < 9; j++) {
             board[j] = '';
@@ -17,7 +20,7 @@ function Gameboard () {
     const setWinMark = (val) => win_mark = val;
     const getWinMark = () => win_mark;
     return {getGameboard, setGameboard, clearGameboard, getPlayerTurn, setPlayerTurn,
-    setWinMark, getWinMark };
+    setWinMark, getWinMark, getGame, setGame };
 }
 
 // Player module that holds each players module
@@ -47,6 +50,19 @@ function changeMarker(mark) {
     button_container.style.display = 'none';
 }
 
+// Randomly chooses empty spot and fills it with player 2 mark
+function cpuTurn() {
+    empty_spots = [];
+    for (let i = 0; i < 9; i++) {
+        if (gameboard.getGameboard(i) === '') {
+            empty_spots.push(i);
+        }
+    }
+    const choice = empty_spots[(Math.floor(Math.random() * empty_spots.length))];
+    console.log(choice);
+    setGrid(choice);
+}
+
 // Puts array contents from gameboard onto screen
 function fillBoard() {
     for (let i = 0; i < 9; i++) {
@@ -54,11 +70,19 @@ function fillBoard() {
         new_grid.innerHTML = gameboard.getGameboard(i);
     }
     const player_turn = document.querySelector('.turn-notif');
-    const play = gameboard.getPlayerTurn() ? player1.getMarker() : player2.getMarker();
-    player_turn.innerHTML = play + ' turn';
     if (checkWin()) {
+        gameboard.setGame(false);
         player_turn.innerHTML = gameboard.getWinMark() + ' Wins!';
+        setTimeout(() => resetBoard(), 1000);
     }
+    if (gameboard.getGame()) {
+        const play = gameboard.getPlayerTurn() ? player1.getMarker() : player2.getMarker();
+        player_turn.innerHTML = play + ' turn';
+        if (!gameboard.getPlayerTurn()) {
+            setTimeout(() => cpuTurn(), 500);
+        }
+    }
+
 }
 
 // Determines where in the array a marker should go
@@ -82,6 +106,7 @@ function resetBoard() {
     player2.setMarker('');
     document.getElementById('buttons').style.display = 'flex';
     gameboard.setPlayerTurn(true);
+    gameboard.setGame(true);
 }
 
 // Check for the 8 win conditions
