@@ -59,8 +59,8 @@ function setGrid(id) {
         const turn = gameboard.getPlayerTurn();
         const player = turn ? player1 : player2;
         gameboard.setGameboard(player.getMarker(), id);
-        fillBoard();
         gameboard.setPlayerTurn(!turn);
+        fillBoard();
     }
 }
 
@@ -71,7 +71,6 @@ function resetBoard() {
     fillBoard();
 }
 
-// Checks for wins - Buggy, need to look into
 function checkWin() {
     let result = false;
     for (let i = 0; i < 3; i++) {
