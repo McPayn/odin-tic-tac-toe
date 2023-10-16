@@ -63,6 +63,16 @@ function cpuTurn() {
     setGrid(choice);
 }
 
+function checkDraw() {
+    let count = 0;
+    for (let i = 0; i < 9; i++) {
+        if (gameboard.getGameboard(i) !== '') {
+            count++;
+        }
+    }
+    return count === 9;
+}
+
 // Puts array contents from gameboard onto screen
 function fillBoard() {
     for (let i = 0; i < 9; i++) {
@@ -70,11 +80,18 @@ function fillBoard() {
         new_grid.innerHTML = gameboard.getGameboard(i);
     }
     const player_turn = document.querySelector('.turn-notif');
+    
+    if (checkDraw()) {
+        gameboard.setGame(false);
+        player_turn.innerHTML = 'Draw!';
+        setTimeout(() => resetBoard(), 1000);
+    } 
     if (checkWin()) {
         gameboard.setGame(false);
         player_turn.innerHTML = gameboard.getWinMark() + ' Wins!';
         setTimeout(() => resetBoard(), 1000);
     }
+
     if (gameboard.getGame()) {
         const play = gameboard.getPlayerTurn() ? player1.getMarker() : player2.getMarker();
         player_turn.innerHTML = play + ' turn';
