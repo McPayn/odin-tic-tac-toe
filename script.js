@@ -29,11 +29,15 @@ const player1 = createPlayer("X");
 const player2 = createPlayer("O");
 
 function changeMarker(mark) {
+    const button_container = document.getElementById('buttons')
     let mark_2 = '';
     if (mark == 'X') { mark_2 = 'O'; }
     else { mark_2 = 'X'; }
     player1.setMarker(mark);
     player2.setMarker(mark_2);
+    const player_turn = document.querySelector('.turn-notif');
+    player_turn.innerHTML = player1.getMarker() + " turn";
+    button_container.style.display = 'none';
 }
 
 

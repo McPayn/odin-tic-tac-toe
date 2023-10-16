@@ -8,11 +8,14 @@
     <title>Tic-Tac-Toe</title>
 </head>
 <body>
-    <div class="buttons">
-        <button onclick="changeMarker('O')">O</button>
-        <button onclick="changeMarker('X')">X</button>
-        <button onclick="resetBoard()">Reset</button>
+    <div class="buttons" id="buttons">
+        <p>Choose Marker</p>
+        <div class="button-row">
+            <button onclick="changeMarker('X')">X</button>
+            <button onclick="changeMarker('O')">O</button>
+        </div>
     </div>
+    <button onclick="resetBoard()">Reset</button>
     <div class="container" id="container">
         <div class="board-grid left top" id="0" onclick="setGrid(0)"></div>
         <div class="board-grid top" id="1" onclick="setGrid(1)"></div>
