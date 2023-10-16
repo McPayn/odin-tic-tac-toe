@@ -1,3 +1,6 @@
+// Gameboard module, contains array that holds markers
+// Boolean that determines who's turn it is, and
+// Functions to edit those variables
 function Gameboard () {
     const board = Array(9).fill('');
     let playerTurn = true;
@@ -17,6 +20,7 @@ function Gameboard () {
     setWinMark, getWinMark };
 }
 
+// Player module that holds each players module
 function createPlayer(mark) {
     let marker = mark;
     const getMarker = () => marker;
@@ -28,6 +32,7 @@ const gameboard = new Gameboard;
 const player1 = createPlayer("X");
 const player2 = createPlayer("O");
 
+// Sets players marker based on which one player 1 chooses
 function changeMarker(mark) {
     const button_container = document.getElementById('buttons')
     let mark_2 = '';
@@ -35,12 +40,14 @@ function changeMarker(mark) {
     else { mark_2 = 'X'; }
     player1.setMarker(mark);
     player2.setMarker(mark_2);
+    console.log(mark);
+    console.log(mark_2);
     const player_turn = document.querySelector('.turn-notif');
     player_turn.innerHTML = player1.getMarker() + " turn";
     button_container.style.display = 'none';
 }
 
-
+// Puts array contents from gameboard onto screen
 function fillBoard() {
     for (let i = 0; i < 9; i++) {
         const new_grid = document.getElementById(i);
@@ -54,6 +61,7 @@ function fillBoard() {
     }
 }
 
+// Determines where in the array a marker should go
 function setGrid(id) {
     if (gameboard.getGameboard(id) == '') {
         const turn = gameboard.getPlayerTurn();
@@ -64,13 +72,19 @@ function setGrid(id) {
     }
 }
 
+// Resets everything
 function resetBoard() {
     for (let i = 0; i < 9; i++) {
         gameboard.setGameboard('', i);
     }
     fillBoard();
+    player1.setMarker('');
+    player2.setMarker('');
+    document.getElementById('buttons').style.display = 'flex';
+    gameboard.setPlayerTurn(true);
 }
 
+// Check for the 8 win conditions
 function checkWin() {
     let result = false;
     for (let i = 0; i < 3; i++) {
